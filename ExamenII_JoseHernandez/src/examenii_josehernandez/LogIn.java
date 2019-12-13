@@ -16,6 +16,10 @@ public class LogIn extends javax.swing.JFrame {
      */
     public LogIn() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        adminUsuarios admin = new adminUsuarios("./usuarios.hc");
+        admin.cargarArchivo();
+        
     }
 
     /**
@@ -28,6 +32,22 @@ public class LogIn extends javax.swing.JFrame {
     private void initComponents() {
 
         Registrar = new javax.swing.JDialog();
+        jLabel4 = new javax.swing.JLabel();
+        tf_nombreRegistro = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        sp_edad = new javax.swing.JSpinner();
+        jLabel6 = new javax.swing.JLabel();
+        tf_correoRegistro = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        tf_nombreCanal = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        tf_usuarioRegistrar = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        tf_categoriaCanal = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        pf_contrasenaRegistro = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -36,15 +56,103 @@ public class LogIn extends javax.swing.JFrame {
         tf_usuarioLog = new javax.swing.JTextField();
         tf_contraLog = new javax.swing.JTextField();
 
+        jLabel4.setText("Nombre:");
+
+        jLabel5.setText("Edad:");
+
+        jLabel6.setText("Correo:");
+
+        jLabel7.setText("Nombre del Canal:");
+
+        jLabel8.setText("Usuario:");
+
+        jLabel9.setText("Categoria del Canal:");
+
+        jButton3.setText("Crear");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setText("Registrar");
+
+        jLabel11.setText("Contraseña:");
+
         javax.swing.GroupLayout RegistrarLayout = new javax.swing.GroupLayout(Registrar.getContentPane());
         Registrar.getContentPane().setLayout(RegistrarLayout);
         RegistrarLayout.setHorizontalGroup(
             RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistrarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(155, 155, 155))
+            .addGroup(RegistrarLayout.createSequentialGroup()
+                .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RegistrarLayout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9)
+                            .addGroup(RegistrarLayout.createSequentialGroup()
+                                .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel11))
+                                .addGap(18, 18, 18)
+                                .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tf_nombreRegistro)
+                                    .addComponent(sp_edad, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tf_correoRegistro)
+                                    .addComponent(tf_usuarioRegistrar)
+                                    .addComponent(pf_contrasenaRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
+                                .addGap(80, 80, 80)
+                                .addComponent(jLabel7)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tf_nombreCanal)
+                            .addComponent(tf_categoriaCanal, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)))
+                    .addGroup(RegistrarLayout.createSequentialGroup()
+                        .addGap(265, 265, 265)
+                        .addComponent(jLabel10)))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         RegistrarLayout.setVerticalGroup(
             RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
+            .addGroup(RegistrarLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel10)
+                .addGap(67, 67, 67)
+                .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tf_nombreRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(tf_nombreCanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(sp_edad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(tf_categoriaCanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(tf_correoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(tf_usuarioRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(pf_contrasenaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -57,6 +165,11 @@ public class LogIn extends javax.swing.JFrame {
         jLabel3.setText("Contraseña:");
 
         jButton1.setText("Ingresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Registrar");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -121,6 +234,37 @@ public class LogIn extends javax.swing.JFrame {
         Registrar.setVisible(true);
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        adminUsuarios admin = new adminUsuarios("./usuarios.hc");
+        admin.cargarArchivo();
+        Canal temp;
+        String nombre = tf_nombreRegistro.getText();
+        
+        int edad = (int) sp_edad.getValue();
+        String correo = tf_correoRegistro.getText();
+        String usuarioR = tf_usuarioRegistrar.getText();
+        String contraR = pf_contrasenaRegistro.getText();
+        
+        String nombreCanal = tf_nombreCanal.getText();
+        String categoriaCanal = tf_categoriaCanal.getText();
+        
+        temp = new Canal(nombre, categoriaCanal);
+        Usuario temporal = new Usuario(nombre, edad, correo, usuarioR, temp, contraR);
+        admin.getLista_usuarios().add(temporal);
+        admin.escribirArchivo();
+        tf_nombreRegistro.setText("");
+        sp_edad.setValue(0);
+        tf_correoRegistro.setText("");
+        tf_usuarioRegistrar.setText("");
+        pf_contrasenaRegistro.setText("");
+        tf_nombreCanal.setText("");
+        tf_categoriaCanal.setText("");
+    }//GEN-LAST:event_jButton3MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -160,10 +304,26 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JDialog Registrar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPasswordField pf_contrasenaRegistro;
+    private javax.swing.JSpinner sp_edad;
+    private javax.swing.JTextField tf_categoriaCanal;
     private javax.swing.JTextField tf_contraLog;
+    private javax.swing.JTextField tf_correoRegistro;
+    private javax.swing.JTextField tf_nombreCanal;
+    private javax.swing.JTextField tf_nombreRegistro;
     private javax.swing.JTextField tf_usuarioLog;
+    private javax.swing.JTextField tf_usuarioRegistrar;
     // End of variables declaration//GEN-END:variables
 }

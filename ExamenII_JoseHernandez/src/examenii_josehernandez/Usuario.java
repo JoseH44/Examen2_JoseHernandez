@@ -5,13 +5,15 @@
  */
 package examenii_josehernandez;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author jrdjh
  */
-public class Usuario {
+public class Usuario implements Serializable {
+
     private String nombre;
     private int edad;
     private String correo;
@@ -19,12 +21,13 @@ public class Usuario {
     private Canal canal;
     private String contrasena;
     private ArrayList<Canal> canales_suscritos = new ArrayList();
-    private ArrayList<Video> videos_favoritos;
+    private ArrayList<Video> videos_favoritos = new ArrayList();
+    private static final long SerialVersionUID = 777L;
 
     public Usuario() {
     }
 
-    public Usuario(String nombre, int edad, String correo, String nom_usuario, Canal canal, String contrasena, ArrayList<Video> videos_favoritos) {
+    public Usuario(String nombre, int edad, String correo, String nom_usuario, Canal canal, String contrasena) {
         this.nombre = nombre;
         this.edad = edad;
         this.correo = correo;
@@ -102,7 +105,5 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "nombre=" + nombre + ", edad=" + edad + ", correo=" + correo + ", nom_usuario=" + nom_usuario + ", canal=" + canal + ", contrasena=" + contrasena + ", canales_suscritos=" + canales_suscritos + ", videos_favoritos=" + videos_favoritos + '}';
     }
-    
-    
-    
+
 }

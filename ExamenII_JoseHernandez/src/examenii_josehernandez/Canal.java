@@ -23,12 +23,12 @@ public class Canal {
     public Canal() {
     }
 
-    public Canal(int num_suscriptores, String nombre, String categoria, int num_videos, int cant_likes) {
-        this.num_suscriptores = num_suscriptores;
+    public Canal(String nombre, String categoria) {
+        this.num_suscriptores = 0;
         this.nombre = nombre;
         this.categoria = categoria;
-        this.num_videos = num_videos;
-        this.cant_likes = cant_likes;
+        this.num_videos = 0;
+        this.cant_likes = 0;
     }
 
     public int getNum_suscriptores() {
