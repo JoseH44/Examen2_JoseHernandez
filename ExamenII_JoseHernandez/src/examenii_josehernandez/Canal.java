@@ -5,13 +5,14 @@
  */
 package examenii_josehernandez;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author jrdjh
  */
-public class Canal {
+public class Canal implements Serializable {
 
     private int num_suscriptores;
     private String nombre;
@@ -19,6 +20,7 @@ public class Canal {
     private int num_videos;
     private int cant_likes;
     private ArrayList<Video> videos_propios = new ArrayList();
+    private static final long SerialVersionUID = 444L;
 
     public Canal() {
     }

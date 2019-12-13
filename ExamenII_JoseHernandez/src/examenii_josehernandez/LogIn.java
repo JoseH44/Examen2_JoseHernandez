@@ -5,6 +5,8 @@
  */
 package examenii_josehernandez;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author jrdjh
@@ -18,8 +20,19 @@ public class LogIn extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         adminUsuarios admin = new adminUsuarios("./usuarios.hc");
+        adminCanales adminC = new adminCanales("./canales.hc");
         admin.cargarArchivo();
-        
+        adminC.cargarArchivo();
+        DefaultTableModel model = (DefaultTableModel) jt_canales.getModel();
+        for (int i = 0; i < adminC.getLista_canales().size(); i++) {
+            Object[] newRow = {
+                adminC.getLista_canales().get(i).getNombre(), adminC.getLista_canales().get(i).getCategoria(),
+                adminC.getLista_canales().get(i).getNum_suscriptores()
+            };
+            model.addRow(newRow);
+        }
+        jt_canales.setModel(model);
+
     }
 
     /**
@@ -48,6 +61,13 @@ public class LogIn extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         pf_contrasenaRegistro = new javax.swing.JPasswordField();
+        jd_cuenta = new javax.swing.JDialog();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jt_canales = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -155,6 +175,87 @@ public class LogIn extends javax.swing.JFrame {
                 .addGap(49, 49, 49))
         );
 
+        jt_canales.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Categoria", "Suscriptores"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jt_canales);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(110, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Canales", jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 696, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 449, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab2", jPanel2);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 696, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 449, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab3", jPanel3);
+
+        javax.swing.GroupLayout jd_cuentaLayout = new javax.swing.GroupLayout(jd_cuenta.getContentPane());
+        jd_cuenta.getContentPane().setLayout(jd_cuentaLayout);
+        jd_cuentaLayout.setHorizontalGroup(
+            jd_cuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1)
+        );
+        jd_cuentaLayout.setVerticalGroup(
+            jd_cuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -165,9 +266,9 @@ public class LogIn extends javax.swing.JFrame {
         jLabel3.setText("Contraseña:");
 
         jButton1.setText("Ingresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
             }
         });
 
@@ -234,27 +335,27 @@ public class LogIn extends javax.swing.JFrame {
         Registrar.setVisible(true);
     }//GEN-LAST:event_jButton2MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         adminUsuarios admin = new adminUsuarios("./usuarios.hc");
+        adminCanales adminC = new adminCanales("./canales.hc");
         admin.cargarArchivo();
+        adminC.cargarArchivo();
         Canal temp;
         String nombre = tf_nombreRegistro.getText();
-        
+
         int edad = (int) sp_edad.getValue();
         String correo = tf_correoRegistro.getText();
         String usuarioR = tf_usuarioRegistrar.getText();
         String contraR = pf_contrasenaRegistro.getText();
-        
+
         String nombreCanal = tf_nombreCanal.getText();
         String categoriaCanal = tf_categoriaCanal.getText();
-        
+
         temp = new Canal(nombre, categoriaCanal);
         Usuario temporal = new Usuario(nombre, edad, correo, usuarioR, temp, contraR);
         admin.getLista_usuarios().add(temporal);
+        adminC.getLista_canales().add(temp);
+        adminC.escribirArchivo();
         admin.escribirArchivo();
         tf_nombreRegistro.setText("");
         sp_edad.setValue(0);
@@ -264,6 +365,21 @@ public class LogIn extends javax.swing.JFrame {
         tf_nombreCanal.setText("");
         tf_categoriaCanal.setText("");
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        adminUsuarios admin = new adminUsuarios("./usuarios.hc");
+        adminCanales adminC = new adminCanales("./canales.hc");
+        admin.cargarArchivo();
+        adminC.cargarArchivo();
+        String usuarioPrincipal = tf_usuarioLog.getText();
+        String contraPrincipal = tf_contraLog.getText();
+        for (int i = 0; i < admin.getLista_usuarios().size(); i++) {
+            if (usuarioPrincipal.equals(admin.getLista_usuarios().get(i).getNom_usuario())
+                    && contraPrincipal.equals(admin.getLista_usuarios().get(i).getContrasena())) {
+
+            }
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -316,6 +432,13 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JDialog jd_cuenta;
+    private javax.swing.JTable jt_canales;
     private javax.swing.JPasswordField pf_contrasenaRegistro;
     private javax.swing.JSpinner sp_edad;
     private javax.swing.JTextField tf_categoriaCanal;
