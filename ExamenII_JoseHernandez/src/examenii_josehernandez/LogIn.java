@@ -5,7 +5,10 @@
  */
 package examenii_josehernandez;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -24,6 +27,27 @@ public class LogIn extends javax.swing.JFrame {
         admin.cargarArchivo();
         adminC.cargarArchivo();
         DefaultTableModel model = (DefaultTableModel) jt_canales.getModel();
+        jt_canales.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Nombre", "Categoria", "Suscriptores"
+                }
+        ) {
+            Class[] types = new Class[]{
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean[]{
+                false, false, false
+            };
+            
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+            
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
         for (int i = 0; i < adminC.getLista_canales().size(); i++) {
             Object[] newRow = {
                 adminC.getLista_canales().get(i).getNombre(), adminC.getLista_canales().get(i).getCategoria(),
@@ -32,7 +56,7 @@ public class LogIn extends javax.swing.JFrame {
             model.addRow(newRow);
         }
         jt_canales.setModel(model);
-
+        
     }
 
     /**
@@ -66,15 +90,29 @@ public class LogIn extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_canales = new javax.swing.JTable();
+        jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtree_categorias = new javax.swing.JTree();
         jPanel3 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        tf_nombreVideo = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        sp_duracionVideo = new javax.swing.JSpinner();
+        jLabel14 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        ta_subtitulos = new javax.swing.JTextArea();
+        jButton5 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jt_video = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         tf_usuarioLog = new javax.swing.JTextField();
-        tf_contraLog = new javax.swing.JTextField();
+        pf_pass = new javax.swing.JPasswordField();
 
         jLabel4.setText("Nombre:");
 
@@ -200,6 +238,13 @@ public class LogIn extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jt_canales);
 
+        jButton4.setText("Suscribirme");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -208,42 +253,152 @@ public class LogIn extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(63, 63, 63))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(28, 28, 28))
         );
 
         jTabbedPane1.addTab("Canales", jPanel1);
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Categorias");
+        jtree_categorias.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane2.setViewportView(jtree_categorias);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 696, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(271, 271, 271)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(348, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        jTabbedPane1.addTab("Canales Suscritos", jPanel2);
+
+        jLabel12.setText("Nombre:");
+
+        jLabel13.setText("Tiempo de Duracion:");
+
+        jLabel14.setText("Subtitulos:");
+
+        ta_subtitulos.setColumns(20);
+        ta_subtitulos.setRows(5);
+        jScrollPane3.setViewportView(ta_subtitulos);
+
+        jButton5.setText("Crear Video");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 696, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tf_nombreVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sp_duracionVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(320, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton5)
+                .addGap(104, 104, 104))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(tf_nombreVideo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(80, 80, 80)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(sp_duracionVideo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(jLabel14))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(42, 42, 42)
+                .addComponent(jButton5)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab3", jPanel3);
+        jTabbedPane1.addTab("Crear Video", jPanel3);
+
+        jt_video.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Tiemp.Duracion", "N°Likes", "Comentarios"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(jt_video);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(129, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Videos de Mi Canal", jPanel4);
 
         javax.swing.GroupLayout jd_cuentaLayout = new javax.swing.GroupLayout(jd_cuenta.getContentPane());
         jd_cuenta.getContentPane().setLayout(jd_cuentaLayout);
@@ -293,7 +448,7 @@ public class LogIn extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tf_usuarioLog)
-                            .addComponent(tf_contraLog, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
+                            .addComponent(pf_pass, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(166, 166, 166)
                         .addComponent(jButton1)
@@ -316,7 +471,7 @@ public class LogIn extends javax.swing.JFrame {
                 .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(tf_contraLog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pf_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -342,16 +497,16 @@ public class LogIn extends javax.swing.JFrame {
         adminC.cargarArchivo();
         Canal temp;
         String nombre = tf_nombreRegistro.getText();
-
+        
         int edad = (int) sp_edad.getValue();
         String correo = tf_correoRegistro.getText();
         String usuarioR = tf_usuarioRegistrar.getText();
         String contraR = pf_contrasenaRegistro.getText();
-
+        
         String nombreCanal = tf_nombreCanal.getText();
         String categoriaCanal = tf_categoriaCanal.getText();
-
-        temp = new Canal(nombre, categoriaCanal);
+        
+        temp = new Canal(nombreCanal, categoriaCanal);
         Usuario temporal = new Usuario(nombre, edad, correo, usuarioR, temp, contraR);
         admin.getLista_usuarios().add(temporal);
         adminC.getLista_canales().add(temp);
@@ -364,22 +519,165 @@ public class LogIn extends javax.swing.JFrame {
         pf_contrasenaRegistro.setText("");
         tf_nombreCanal.setText("");
         tf_categoriaCanal.setText("");
+        Registrar.setVisible(false);
+        this.setVisible(true);
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Categorias");
+        jtree_categorias.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        
         adminUsuarios admin = new adminUsuarios("./usuarios.hc");
         adminCanales adminC = new adminCanales("./canales.hc");
         admin.cargarArchivo();
         adminC.cargarArchivo();
-        String usuarioPrincipal = tf_usuarioLog.getText();
-        String contraPrincipal = tf_contraLog.getText();
+        usuarioPrincipal = tf_usuarioLog.getText();
+        contraPrincipal = pf_pass.getText();
+        jt_canales.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Nombre", "Categoria", "Suscriptores"
+                }
+        ) {
+            Class[] types = new Class[]{
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean[]{
+                false, false, false
+            };
+            
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+            
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+
+        //cargar los canales
+        DefaultTableModel m = (DefaultTableModel) jt_canales.getModel();
+        
+        for (int i = 0; i < adminC.getLista_canales().size(); i++) {
+            Object[] row = {
+                adminC.getLista_canales().get(i).getNombre(), adminC.getLista_canales().get(i).getCategoria(),
+                adminC.getLista_canales().get(i).getNum_suscriptores()
+            };
+            m.addRow(row);
+            
+        }
+        
+        jt_canales.setModel(m);
+        DefaultTreeModel model = (DefaultTreeModel) jtree_categorias.getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) model.getRoot();
+        
         for (int i = 0; i < admin.getLista_usuarios().size(); i++) {
             if (usuarioPrincipal.equals(admin.getLista_usuarios().get(i).getNom_usuario())
                     && contraPrincipal.equals(admin.getLista_usuarios().get(i).getContrasena())) {
-
+                usuario_actual = admin.getLista_usuarios().get(i);
+                for (int j = 0; j < usuario_actual.getCanales_suscritos().size(); j++) {
+                    for (int k = 0; k < raiz.getChildCount(); k++) {
+                        if (raiz.getChildAt(k).equals(usuario_actual.getCanales_suscritos().get(i).getCategoria())) {
+                            DefaultMutableTreeNode canal = new DefaultMutableTreeNode(usuario_actual.getCanales_suscritos().get(i).getNombre());
+                            
+                        } else {
+                            DefaultMutableTreeNode categoria = new DefaultMutableTreeNode(usuario_actual.getCanales_suscritos().get(i).getCategoria());
+                            DefaultMutableTreeNode canal = new DefaultMutableTreeNode(usuario_actual.getCanales_suscritos().get(i).getNombre());
+                            categoria.add(canal);
+                            raiz.add(categoria);
+                        }
+                    }
+                    
+                }
+                model.reload();
+                this.setVisible(false);
+                jd_cuenta.pack();
+                jd_cuenta.setModal(true);
+                jd_cuenta.setLocationRelativeTo(this);
+                jd_cuenta.setVisible(true);
             }
         }
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        
+        adminUsuarios admin = new adminUsuarios("./usuarios.hc");
+        adminCanales adminC = new adminCanales("./canales.hc");
+        admin.cargarArchivo();
+        adminC.cargarArchivo();
+        Canal tempAñadir;
+        if (jt_canales.getSelectedRow() >= 0) {
+            tempAñadir = adminC.getLista_canales().get(jt_canales.getSelectedRow());
+            usuario_actual.getCanales_suscritos().add(tempAñadir);
+            for (int i = 0; i < admin.getLista_usuarios().size(); i++) {
+                if (usuario_actual.getNom_usuario().equals(admin.getLista_usuarios().get(i).getNom_usuario())
+                        && usuario_actual.getContrasena().equals(admin.getLista_usuarios().get(i).getContrasena())) {
+                    admin.getLista_usuarios().get(i).getCanales_suscritos().add(tempAñadir);
+                    admin.escribirArchivo();
+                    JOptionPane.showMessageDialog(jd_cuenta, "Suscrito");
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        //
+        adminUsuarios admin = new adminUsuarios("./usuarios.hc");
+        admin.cargarArchivo();
+        String nombreVideo = tf_nombreVideo.getText();
+        String subtitulos = ta_subtitulos.getText();
+        int duracion = (int) sp_duracionVideo.getValue();
+        jt_video.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Nombre", "Tiemp.Duracion", "N°Likes", "Comentarios"
+                }
+        ) {
+            Class[] types = new Class[]{
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false
+            };
+            
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+            
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        for (int i = 0; i < admin.getLista_usuarios().size(); i++) {
+            if (usuarioPrincipal.equals(admin.getLista_usuarios().get(i).getNom_usuario())
+                    && contraPrincipal.equals(admin.getLista_usuarios().get(i).getContrasena())) {
+                Video newVideo = new Video(nombreVideo, duracion, subtitulos);
+                usuario_actual.getCanal().getVideos_propios().add(newVideo);
+                admin.getLista_usuarios().get(i).getCanal().getVideos_propios().add(newVideo);
+                admin.escribirArchivo();
+                
+            }
+            
+        }
+        DefaultTableModel Tmodel = (DefaultTableModel) jt_video.getModel();
+        for (int i = 0; i < usuario_actual.getCanal().getVideos_propios().size(); i++) {
+            Object[] rowRow = {
+                usuario_actual.getCanal().getVideos_propios().get(i).getNombre(),
+                usuario_actual.getCanal().getVideos_propios().get(i).getTiempo_duracion(),
+                usuario_actual.getCanal().getVideos_propios().get(i).getNum_likes(),
+                usuario_actual.getCanal().getVideos_propios().get(i).getComentarios()
+            
+            };
+            Tmodel.addRow(rowRow);
+        }
+        jt_video.setModel(Tmodel);
+        
+        tf_nombreVideo.setText("");
+        ta_subtitulos.setText("");
+        sp_duracionVideo.setValue(0);
+        
+
+    }//GEN-LAST:event_jButton5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -421,9 +719,14 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -435,18 +738,31 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JDialog jd_cuenta;
     private javax.swing.JTable jt_canales;
+    private javax.swing.JTable jt_video;
+    private javax.swing.JTree jtree_categorias;
     private javax.swing.JPasswordField pf_contrasenaRegistro;
+    private javax.swing.JPasswordField pf_pass;
+    private javax.swing.JSpinner sp_duracionVideo;
     private javax.swing.JSpinner sp_edad;
+    private javax.swing.JTextArea ta_subtitulos;
     private javax.swing.JTextField tf_categoriaCanal;
-    private javax.swing.JTextField tf_contraLog;
     private javax.swing.JTextField tf_correoRegistro;
     private javax.swing.JTextField tf_nombreCanal;
     private javax.swing.JTextField tf_nombreRegistro;
+    private javax.swing.JTextField tf_nombreVideo;
     private javax.swing.JTextField tf_usuarioLog;
     private javax.swing.JTextField tf_usuarioRegistrar;
     // End of variables declaration//GEN-END:variables
+    Usuario usuario_actual;
+    String usuarioPrincipal;
+    String contraPrincipal;
+    
 }

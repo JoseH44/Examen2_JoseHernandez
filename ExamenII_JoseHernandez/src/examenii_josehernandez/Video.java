@@ -21,13 +21,13 @@ public class Video {
     public Video() {
     }
 
-    public Video(String nombre, int tiempo_duracion, int num_likes, int num_dislikes, String comentarios, String subtitulos) {
+    public Video(String nombre, int tiempo_duracion, String subtitulos) {
         this.nombre = nombre;
         this.tiempo_duracion = tiempo_duracion;
-        this.num_likes = num_likes;
-        this.num_dislikes = num_dislikes;
+        this.num_likes = 0;
+        this.num_dislikes = 0;
         this.comentarios = comentarios;
-        this.subtitulos = subtitulos;
+
     }
 
     public String getNombre() {
