@@ -117,6 +117,10 @@ public class LogIn extends javax.swing.JFrame {
         jt_video = new javax.swing.JTable();
         pop_reproduccion = new javax.swing.JPopupMenu();
         jm_repro = new javax.swing.JMenuItem();
+        Reproductor = new javax.swing.JDialog();
+        pg_barra = new javax.swing.JProgressBar();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -428,7 +432,39 @@ public class LogIn extends javax.swing.JFrame {
         );
 
         jm_repro.setText("Reproducir");
+        jm_repro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jm_reproActionPerformed(evt);
+            }
+        });
         pop_reproduccion.add(jm_repro);
+
+        pg_barra.setMaximum(1000000);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane5.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout ReproductorLayout = new javax.swing.GroupLayout(Reproductor.getContentPane());
+        Reproductor.getContentPane().setLayout(ReproductorLayout);
+        ReproductorLayout.setHorizontalGroup(
+            ReproductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReproductorLayout.createSequentialGroup()
+                .addContainerGap(139, Short.MAX_VALUE)
+                .addGroup(ReproductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pg_barra, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(135, 135, 135))
+        );
+        ReproductorLayout.setVerticalGroup(
+            ReproductorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReproductorLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(pg_barra, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -787,6 +823,15 @@ public class LogIn extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtree_categoriasMouseClicked
 
+    private void jm_reproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jm_reproActionPerformed
+        Reproductor.setModal(true);
+        Reproductor.setLocationRelativeTo(jd_cuenta);
+        Reproductor.setVisible(true);
+        HiloRepro h = new HiloRepro(pg_barra, 50);
+        Thread proceso = new Thread(h);
+        proceso.start();
+    }//GEN-LAST:event_jm_reproActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -824,6 +869,7 @@ public class LogIn extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog Registrar;
+    private javax.swing.JDialog Reproductor;
     private javax.swing.JComboBox<String> cb_categorias;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -852,7 +898,9 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JDialog jd_cuenta;
     private javax.swing.JMenuItem jm_repro;
     private javax.swing.JTable jt_canales;
@@ -860,6 +908,7 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JTree jtree_categorias;
     private javax.swing.JPasswordField pf_contrasenaRegistro;
     private javax.swing.JPasswordField pf_pass;
+    private javax.swing.JProgressBar pg_barra;
     private javax.swing.JPopupMenu pop_reproduccion;
     private javax.swing.JSpinner sp_duracionVideo;
     private javax.swing.JSpinner sp_edad;
