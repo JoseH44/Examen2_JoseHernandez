@@ -115,6 +115,8 @@ public class LogIn extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jt_video = new javax.swing.JTable();
+        pop_reproduccion = new javax.swing.JPopupMenu();
+        jm_repro = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -281,6 +283,11 @@ public class LogIn extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Categorias");
         jtree_categorias.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jtree_categorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtree_categoriasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jtree_categorias);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -420,6 +427,9 @@ public class LogIn extends javax.swing.JFrame {
             .addComponent(jTabbedPane1)
         );
 
+        jm_repro.setText("Reproducir");
+        pop_reproduccion.add(jm_repro);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -536,10 +546,26 @@ public class LogIn extends javax.swing.JFrame {
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Categorias");
         jtree_categorias.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
 
+        jScrollPane2.setViewportView(jtree_categorias);
+        DefaultTreeModel modelArbol = (DefaultTreeModel) jtree_categorias.getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelArbol.getRoot();
+
+        DefaultMutableTreeNode juegos = new DefaultMutableTreeNode("Juegos");
+        raiz.add(juegos);
+        DefaultMutableTreeNode entre = new DefaultMutableTreeNode("Entretenimiento");
+        raiz.add(entre);
+        DefaultMutableTreeNode salud = new DefaultMutableTreeNode("Salud");
+        raiz.add(salud);
+        DefaultMutableTreeNode dep = new DefaultMutableTreeNode("Deportes");
+        raiz.add(dep);
+        DefaultMutableTreeNode cocina = new DefaultMutableTreeNode("Cocina");
+        raiz.add(cocina);
+        modelArbol.reload();
         adminUsuarios admin = new adminUsuarios("./usuarios.hc");
         adminCanales adminC = new adminCanales("./canales.hc");
         admin.cargarArchivo();
         adminC.cargarArchivo();
+
         usuarioPrincipal = tf_usuarioLog.getText();
         contraPrincipal = pf_pass.getText();
         jt_canales.setModel(new javax.swing.table.DefaultTableModel(
@@ -577,8 +603,6 @@ public class LogIn extends javax.swing.JFrame {
         }
 
         jt_canales.setModel(m);
-        DefaultTreeModel model = (DefaultTreeModel) jtree_categorias.getModel();
-        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) model.getRoot();
 
         for (int i = 0; i < admin.getLista_usuarios().size(); i++) {
             if (usuarioPrincipal.equals(admin.getLista_usuarios().get(i).getNom_usuario())
@@ -595,24 +619,28 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        if (sus == 1) {
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Categorias");
-        jtree_categorias.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane2.setViewportView(jtree_categorias);
-        DefaultTreeModel modelArbol = (DefaultTreeModel) jtree_categorias.getModel();
-        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelArbol.getRoot();
+        } else {
+            javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Categorias");
+            jtree_categorias.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+            jScrollPane2.setViewportView(jtree_categorias);
+            modelArbol = (DefaultTreeModel) jtree_categorias.getModel();
+            DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelArbol.getRoot();
 
-        DefaultMutableTreeNode juegos = new DefaultMutableTreeNode("Juegos");
-        raiz.add(juegos);
-        DefaultMutableTreeNode entre = new DefaultMutableTreeNode("Entretenimiento");
-        raiz.add(entre);
-        DefaultMutableTreeNode salud = new DefaultMutableTreeNode("Salud");
-        raiz.add(salud);
-        DefaultMutableTreeNode dep = new DefaultMutableTreeNode("Deportes");
-        raiz.add(dep);
-        DefaultMutableTreeNode cocina = new DefaultMutableTreeNode("Cocina");
-        raiz.add(cocina);
-        modelArbol.reload();
+            juegos = new DefaultMutableTreeNode("Juegos");
+            raiz.add(juegos);
+            entre = new DefaultMutableTreeNode("Entretenimiento");
+            raiz.add(entre);
+            salud = new DefaultMutableTreeNode("Salud");
+            raiz.add(salud);
+            dep = new DefaultMutableTreeNode("Deportes");
+            raiz.add(dep);
+            cocina = new DefaultMutableTreeNode("Cocina");
+            raiz.add(cocina);
+            modelArbol.reload();
+            sus++;
+        }
 
         adminUsuarios admin = new adminUsuarios("./usuarios.hc");
         adminCanales adminC = new adminCanales("./canales.hc");
@@ -690,6 +718,8 @@ public class LogIn extends javax.swing.JFrame {
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         //
         adminUsuarios admin = new adminUsuarios("./usuarios.hc");
+        adminCanales adminC = new adminCanales("./canales.hc");
+        adminC.cargarArchivo();
         admin.cargarArchivo();
         String nombreVideo = tf_nombreVideo.getText();
         String subtitulos = ta_subtitulos.getText();
@@ -719,6 +749,7 @@ public class LogIn extends javax.swing.JFrame {
             if (usuarioPrincipal.equals(admin.getLista_usuarios().get(i).getNom_usuario())
                     && contraPrincipal.equals(admin.getLista_usuarios().get(i).getContrasena())) {
                 Video newVideo = new Video(nombreVideo, duracion, subtitulos);
+
                 usuario_actual.getCanal().getVideos_propios().add(newVideo);
                 admin.getLista_usuarios().get(i).getCanal().getVideos_propios().add(newVideo);
                 admin.escribirArchivo();
@@ -746,6 +777,16 @@ public class LogIn extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton5MouseClicked
 
+    private void jtree_categoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtree_categoriasMouseClicked
+        if (evt.isMetaDown()) {
+            int row = jtree_categorias.getClosestRowForLocation(evt.getX(), evt.getY());
+            jtree_categorias.setSelectionRow(row);
+            Object v1 = jtree_categorias.getSelectionPath().getLastPathComponent();
+            nodo_seleccionado = (DefaultMutableTreeNode) v1;
+            pop_reproduccion.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_jtree_categoriasMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -757,7 +798,7 @@ public class LogIn extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -813,11 +854,13 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JDialog jd_cuenta;
+    private javax.swing.JMenuItem jm_repro;
     private javax.swing.JTable jt_canales;
     private javax.swing.JTable jt_video;
     private javax.swing.JTree jtree_categorias;
     private javax.swing.JPasswordField pf_contrasenaRegistro;
     private javax.swing.JPasswordField pf_pass;
+    private javax.swing.JPopupMenu pop_reproduccion;
     private javax.swing.JSpinner sp_duracionVideo;
     private javax.swing.JSpinner sp_edad;
     private javax.swing.JTextArea ta_subtitulos;
@@ -831,9 +874,12 @@ public class LogIn extends javax.swing.JFrame {
     Usuario usuario_actual;
     String usuarioPrincipal;
     String contraPrincipal;
-    //                    DefaultMutableTreeNode categoria = new DefaultMutableTreeNode(usuario_actual.getCanales_suscritos().get(i).getCategoria().toString());
-//                            DefaultMutableTreeNode canal = new DefaultMutableTreeNode(usuario_actual.getCanales_suscritos().get(i).getNombre().toString());
-//                            categoria.add(canal);
-//                            raiz.add(categoria);
-
+    DefaultMutableTreeNode nodo_seleccionado;
+    DefaultMutableTreeNode juegos;
+    DefaultMutableTreeNode entre;
+    DefaultMutableTreeNode salud;
+    DefaultMutableTreeNode dep;
+    DefaultMutableTreeNode cocina;
+    DefaultTreeModel modelArbol;
+    int sus = 0;
 }
