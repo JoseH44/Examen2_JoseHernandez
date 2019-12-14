@@ -5,6 +5,7 @@
  */
 package examenii_josehernandez;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -26,6 +27,14 @@ public class LogIn extends javax.swing.JFrame {
         adminCanales adminC = new adminCanales("./canales.hc");
         admin.cargarArchivo();
         adminC.cargarArchivo();
+        DefaultComboBoxModel cbModel = (DefaultComboBoxModel) cb_categorias.getModel();
+        cbModel.addElement("Juegos");
+        cbModel.addElement("Entretenimiento");
+        cbModel.addElement("Deporte");
+        cbModel.addElement("Cocina");
+        cbModel.addElement("Salud");
+        cb_categorias.setModel(cbModel);
+
         DefaultTableModel model = (DefaultTableModel) jt_canales.getModel();
         jt_canales.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
@@ -39,11 +48,11 @@ public class LogIn extends javax.swing.JFrame {
             boolean[] canEdit = new boolean[]{
                 false, false, false
             };
-            
+
             public Class getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
-            
+
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
@@ -56,7 +65,7 @@ public class LogIn extends javax.swing.JFrame {
             model.addRow(newRow);
         }
         jt_canales.setModel(model);
-        
+
     }
 
     /**
@@ -80,11 +89,11 @@ public class LogIn extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         tf_usuarioRegistrar = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        tf_categoriaCanal = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         pf_contrasenaRegistro = new javax.swing.JPasswordField();
+        cb_categorias = new javax.swing.JComboBox<>();
         jd_cuenta = new javax.swing.JDialog();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -171,7 +180,7 @@ public class LogIn extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tf_nombreCanal)
-                            .addComponent(tf_categoriaCanal, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)))
+                            .addComponent(cb_categorias, 0, 115, Short.MAX_VALUE)))
                     .addGroup(RegistrarLayout.createSequentialGroup()
                         .addGap(265, 265, 265)
                         .addComponent(jLabel10)))
@@ -195,7 +204,7 @@ public class LogIn extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(tf_categoriaCanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cb_categorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(RegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -497,15 +506,15 @@ public class LogIn extends javax.swing.JFrame {
         adminC.cargarArchivo();
         Canal temp;
         String nombre = tf_nombreRegistro.getText();
-        
+
         int edad = (int) sp_edad.getValue();
         String correo = tf_correoRegistro.getText();
         String usuarioR = tf_usuarioRegistrar.getText();
         String contraR = pf_contrasenaRegistro.getText();
-        
+
         String nombreCanal = tf_nombreCanal.getText();
-        String categoriaCanal = tf_categoriaCanal.getText();
-        
+        String categoriaCanal = (String) cb_categorias.getSelectedItem();
+
         temp = new Canal(nombreCanal, categoriaCanal);
         Usuario temporal = new Usuario(nombre, edad, correo, usuarioR, temp, contraR);
         admin.getLista_usuarios().add(temporal);
@@ -518,7 +527,7 @@ public class LogIn extends javax.swing.JFrame {
         tf_usuarioRegistrar.setText("");
         pf_contrasenaRegistro.setText("");
         tf_nombreCanal.setText("");
-        tf_categoriaCanal.setText("");
+
         Registrar.setVisible(false);
         this.setVisible(true);
     }//GEN-LAST:event_jButton3MouseClicked
@@ -526,7 +535,7 @@ public class LogIn extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Categorias");
         jtree_categorias.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        
+
         adminUsuarios admin = new adminUsuarios("./usuarios.hc");
         adminCanales adminC = new adminCanales("./canales.hc");
         admin.cargarArchivo();
@@ -545,11 +554,11 @@ public class LogIn extends javax.swing.JFrame {
             boolean[] canEdit = new boolean[]{
                 false, false, false
             };
-            
+
             public Class getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
-            
+
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
@@ -557,39 +566,25 @@ public class LogIn extends javax.swing.JFrame {
 
         //cargar los canales
         DefaultTableModel m = (DefaultTableModel) jt_canales.getModel();
-        
+
         for (int i = 0; i < adminC.getLista_canales().size(); i++) {
             Object[] row = {
                 adminC.getLista_canales().get(i).getNombre(), adminC.getLista_canales().get(i).getCategoria(),
                 adminC.getLista_canales().get(i).getNum_suscriptores()
             };
             m.addRow(row);
-            
+
         }
-        
+
         jt_canales.setModel(m);
         DefaultTreeModel model = (DefaultTreeModel) jtree_categorias.getModel();
         DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) model.getRoot();
-        
+
         for (int i = 0; i < admin.getLista_usuarios().size(); i++) {
             if (usuarioPrincipal.equals(admin.getLista_usuarios().get(i).getNom_usuario())
                     && contraPrincipal.equals(admin.getLista_usuarios().get(i).getContrasena())) {
                 usuario_actual = admin.getLista_usuarios().get(i);
-                for (int j = 0; j < usuario_actual.getCanales_suscritos().size(); j++) {
-                    for (int k = 0; k < raiz.getChildCount(); k++) {
-                        if (raiz.getChildAt(k).equals(usuario_actual.getCanales_suscritos().get(i).getCategoria())) {
-                            DefaultMutableTreeNode canal = new DefaultMutableTreeNode(usuario_actual.getCanales_suscritos().get(i).getNombre());
-                            
-                        } else {
-                            DefaultMutableTreeNode categoria = new DefaultMutableTreeNode(usuario_actual.getCanales_suscritos().get(i).getCategoria());
-                            DefaultMutableTreeNode canal = new DefaultMutableTreeNode(usuario_actual.getCanales_suscritos().get(i).getNombre());
-                            categoria.add(canal);
-                            raiz.add(categoria);
-                        }
-                    }
-                    
-                }
-                model.reload();
+
                 this.setVisible(false);
                 jd_cuenta.pack();
                 jd_cuenta.setModal(true);
@@ -600,13 +595,35 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Categorias");
+        jtree_categorias.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane2.setViewportView(jtree_categorias);
+        DefaultTreeModel modelArbol = (DefaultTreeModel) jtree_categorias.getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelArbol.getRoot();
+
+        DefaultMutableTreeNode juegos = new DefaultMutableTreeNode("Juegos");
+        raiz.add(juegos);
+        DefaultMutableTreeNode entre = new DefaultMutableTreeNode("Entretenimiento");
+        raiz.add(entre);
+        DefaultMutableTreeNode salud = new DefaultMutableTreeNode("Salud");
+        raiz.add(salud);
+        DefaultMutableTreeNode dep = new DefaultMutableTreeNode("Deportes");
+        raiz.add(dep);
+        DefaultMutableTreeNode cocina = new DefaultMutableTreeNode("Cocina");
+        raiz.add(cocina);
+        modelArbol.reload();
+
         adminUsuarios admin = new adminUsuarios("./usuarios.hc");
         adminCanales adminC = new adminCanales("./canales.hc");
         admin.cargarArchivo();
         adminC.cargarArchivo();
         Canal tempAñadir;
+        DefaultTableModel modell = (DefaultTableModel) jt_canales.getModel();
+
         if (jt_canales.getSelectedRow() >= 0) {
+            int index = jt_canales.getSelectedRow();
+
             tempAñadir = adminC.getLista_canales().get(jt_canales.getSelectedRow());
             usuario_actual.getCanales_suscritos().add(tempAñadir);
             for (int i = 0; i < admin.getLista_usuarios().size(); i++) {
@@ -615,8 +632,58 @@ public class LogIn extends javax.swing.JFrame {
                     admin.getLista_usuarios().get(i).getCanales_suscritos().add(tempAñadir);
                     admin.escribirArchivo();
                     JOptionPane.showMessageDialog(jd_cuenta, "Suscrito");
+
                 }
             }
+            for (int i = 0; i < adminC.getLista_canales().size(); i++) {
+                if (adminC.getLista_canales().get(index).getCategoria().toString().equals("Juegos")) {
+                    DefaultMutableTreeNode nombreCanal = new DefaultMutableTreeNode(adminC.getLista_canales().get(index));
+                    for (int j = 0; j < adminC.getLista_canales().get(index).getVideos_propios().size(); j++) {
+                        DefaultMutableTreeNode video = new DefaultMutableTreeNode(adminC.getLista_canales().get(index).getVideos_propios().get(j).toString());
+                        nombreCanal.add(video);
+                    }
+                    juegos.add(nombreCanal);
+                    break;
+
+                } else if (adminC.getLista_canales().get(index).getCategoria().toString().equals("Entretenimiento")) {
+                    DefaultMutableTreeNode nombreCanal = new DefaultMutableTreeNode(adminC.getLista_canales().get(index));
+                    for (int j = 0; j < adminC.getLista_canales().get(index).getVideos_propios().size(); j++) {
+                        DefaultMutableTreeNode video = new DefaultMutableTreeNode(adminC.getLista_canales().get(index).getVideos_propios().get(j).toString());
+                        nombreCanal.add(video);
+                    }
+                    entre.add(nombreCanal);
+                    break;
+                } else if (adminC.getLista_canales().get(index).getCategoria().toString().equals("Salud")) {
+                    DefaultMutableTreeNode nombreCanal = new DefaultMutableTreeNode(adminC.getLista_canales().get(index));
+                    for (int j = 0; j < adminC.getLista_canales().get(index).getVideos_propios().size(); j++) {
+                        DefaultMutableTreeNode video = new DefaultMutableTreeNode(adminC.getLista_canales().get(index).getVideos_propios().get(j).toString());
+                        nombreCanal.add(video);
+                    }
+                    salud.add(nombreCanal);
+                    break;
+                } else if (adminC.getLista_canales().get(index).getCategoria().toString().equals("Deportes")) {
+                    DefaultMutableTreeNode nombreCanal = new DefaultMutableTreeNode(adminC.getLista_canales().get(index));
+                    for (int j = 0; j < adminC.getLista_canales().get(index).getVideos_propios().size(); j++) {
+                        DefaultMutableTreeNode video = new DefaultMutableTreeNode(adminC.getLista_canales().get(index).getVideos_propios().get(j).toString());
+                        nombreCanal.add(video);
+                    }
+                    dep.add(nombreCanal);
+                    break;
+                } else if (adminC.getLista_canales().get(index).getCategoria().toString().equals("Cocina")) {
+                    DefaultMutableTreeNode nombreCanal = new DefaultMutableTreeNode(adminC.getLista_canales().get(index));
+                    for (int j = 0; j < adminC.getLista_canales().get(index).getVideos_propios().size(); j++) {
+                        DefaultMutableTreeNode video = new DefaultMutableTreeNode(adminC.getLista_canales().get(index).getVideos_propios().get(j).toString());
+                        nombreCanal.add(video);
+                    }
+                    cocina.add(nombreCanal);
+                    break;
+                }
+            }
+            modell.removeRow(jt_canales.getSelectedRow());
+            jt_canales.setModel(modell);
+
+            modelArbol.reload();
+//            
         }
     }//GEN-LAST:event_jButton4MouseClicked
 
@@ -639,11 +706,11 @@ public class LogIn extends javax.swing.JFrame {
             boolean[] canEdit = new boolean[]{
                 false, false, false, false
             };
-            
+
             public Class getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
-            
+
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit[columnIndex];
             }
@@ -655,9 +722,9 @@ public class LogIn extends javax.swing.JFrame {
                 usuario_actual.getCanal().getVideos_propios().add(newVideo);
                 admin.getLista_usuarios().get(i).getCanal().getVideos_propios().add(newVideo);
                 admin.escribirArchivo();
-                
+
             }
-            
+
         }
         DefaultTableModel Tmodel = (DefaultTableModel) jt_video.getModel();
         for (int i = 0; i < usuario_actual.getCanal().getVideos_propios().size(); i++) {
@@ -666,16 +733,16 @@ public class LogIn extends javax.swing.JFrame {
                 usuario_actual.getCanal().getVideos_propios().get(i).getTiempo_duracion(),
                 usuario_actual.getCanal().getVideos_propios().get(i).getNum_likes(),
                 usuario_actual.getCanal().getVideos_propios().get(i).getComentarios()
-            
+
             };
             Tmodel.addRow(rowRow);
         }
         jt_video.setModel(Tmodel);
-        
+
         tf_nombreVideo.setText("");
         ta_subtitulos.setText("");
         sp_duracionVideo.setValue(0);
-        
+
 
     }//GEN-LAST:event_jButton5MouseClicked
 
@@ -716,6 +783,7 @@ public class LogIn extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog Registrar;
+    private javax.swing.JComboBox<String> cb_categorias;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -753,7 +821,6 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JSpinner sp_duracionVideo;
     private javax.swing.JSpinner sp_edad;
     private javax.swing.JTextArea ta_subtitulos;
-    private javax.swing.JTextField tf_categoriaCanal;
     private javax.swing.JTextField tf_correoRegistro;
     private javax.swing.JTextField tf_nombreCanal;
     private javax.swing.JTextField tf_nombreRegistro;
@@ -764,5 +831,9 @@ public class LogIn extends javax.swing.JFrame {
     Usuario usuario_actual;
     String usuarioPrincipal;
     String contraPrincipal;
-    
+    //                    DefaultMutableTreeNode categoria = new DefaultMutableTreeNode(usuario_actual.getCanales_suscritos().get(i).getCategoria().toString());
+//                            DefaultMutableTreeNode canal = new DefaultMutableTreeNode(usuario_actual.getCanales_suscritos().get(i).getNombre().toString());
+//                            categoria.add(canal);
+//                            raiz.add(categoria);
+
 }
